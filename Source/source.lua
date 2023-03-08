@@ -170,7 +170,7 @@ Spawner.runEntity = function(entityTable)
     local entityConnections = EntityConnections[entityModel]
     
     entityModel:PivotTo(nodes[startNodeIndex].CFrame * CFrame.new(0, 0, startNodeOffset) + Vector3.new(0, 3.5 + entityTable.Config.HeightOffset, 0))
-    entityModel.Parent = workspace
+    entityModel.Parent = game.Workspace.Entities
     task.spawn(entityTable.Debug.OnEntitySpawned)
 
     end
