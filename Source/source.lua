@@ -146,7 +146,7 @@ Spawner.runEntity = function(entityTable)
         else
             local fakeNode = Instance.new("Part")
             fakeNode.Name = "1"
-            fakeNode.CFrame = room:WaitForChild("Door").Door.CFrame - Vector3.new(0, room.Door.Door.Size.Y / 2, 0)
+            fakeNode.CFrame = room:WaitForChild("Door").CFrame - Vector3.new(0, room.Door.Size.Y / 2, 0)
 
             pathfindNodes = {fakeNode}
         end
@@ -173,16 +173,6 @@ Spawner.runEntity = function(entityTable)
     entityModel.Parent = workspace
     task.spawn(entityTable.Debug.OnEntitySpawned)
 
-    -- Mute entity on spawn
-
-    if CG:FindFirstChild("JumpscareGui") or (Plr.PlayerGui.MainUI.Death.HelpfulDialogue.Visible and not Plr.PlayerGui.MainUI.DeathPanelDead.Visible) then
-        warn("on death screen, mute entity")
-
-        for _, v in next, entityModel:GetDescendants() do
-            if v.ClassName == "Sound" and v.Playing then
-                v:Stop()
-            end
-        end
     end
 
 
