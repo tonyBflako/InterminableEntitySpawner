@@ -169,7 +169,7 @@ Spawner.runEntity = function(entityTable)
     local entityConnections = EntityConnections[entityModel]
     
     entityModel:PivotTo(nodes[startNodeIndex].CFrame * CFrame.new(0, 0, startNodeOffset) + Vector3.new(0, 3.5 + entityTable.Config.HeightOffset, 0))
-    entityModel.Parent = workspace
+    entityModel.Parent = game.Workspace.Entities
     task.spawn(entityTable.Debug.OnEntitySpawned)
 
     -- Movement
@@ -314,28 +314,6 @@ Spawner.runJumpscare = function(config)
     Face.Parent = Background
     Background.Parent = JumpscareGui
     JumpscareGui.Parent = CG
-    
-    -- Tease
-
-    local teaseConfig = config.Tease
-    local absHeight = JumpscareGui.AbsoluteSize.Y
-    local minTeaseSize = absHeight / 5
-    local maxTeaseSize = absHeight / 2.5
-
-    if teaseConfig[1] then
-        local teaseAmount = math.random(teaseConfig.Min, teaseConfig.Max)
-
-        sound1:Play()
-        
-        for _ = teaseConfig.Min, teaseAmount do
-            task.wait(math.random(100, 200) / 100)
-
-            local growFactor = (maxTeaseSize - minTeaseSize) / teaseAmount
-            Face.Size = UDim2.new(0, Face.AbsoluteSize.X + growFactor, 0, Face.AbsoluteSize.Y + growFactor)
-        end
-
-        task.wait(math.random(100, 200) / 100)
-    end
     
     -- Flashing
 
