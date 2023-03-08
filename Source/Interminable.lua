@@ -215,11 +215,6 @@ Spawner.runEntity = function(entityTable)
                         enteredRooms[#enteredRooms + 1] = room
                         task.spawn(entityTable.Debug.OnEntityEnteredRoom, room)
 
-                        -- Break lights
-                        
-                        if entityTable.Config.BreakLights then
-                            ModuleScripts.ModuleEvents.shatter(room)
-                        end
 
                         break
                     end
@@ -271,10 +266,6 @@ Spawner.runEntity = function(entityTable)
                         task.spawn(entityTable.Debug.OnDeath)
                         Hum.Health = 0
                         ReSt.GameStats["Player_".. Plr.Name].Total.DeathCause.Value = entityModel.Name
-                        
-                        if #entityTable.Config.CustomDialog > 0 then
-                            firesignal(ReSt.Bricks.DeathHint.OnClientEvent, entityTable.Config.CustomDialog)
-                        end
                         
                         -- Unmute entity
 
