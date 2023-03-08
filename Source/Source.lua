@@ -22,10 +22,7 @@ local SelfModules = {
     DefaultConfig = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors%20Entity%20Spawner/DefaultConfig.lua"))(),
     Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))(),
 }
-local ModuleScripts = {
-    ModuleEvents = require(ReSt.ClientModules.Module_Events),
-    MainGame = require(Plr.PlayerGui.MainUI.Initiator.Main_Game),
-}
+
 local EntityConnections = {}
 
 local Spawner = {}
