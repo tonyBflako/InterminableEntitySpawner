@@ -398,5 +398,5 @@ if not SpawnerSetup then
         end
     end)
 end
-Model.part.FACE.ImageLabel.Rotation = math.random(-20, 20)
+
 return Spawner
