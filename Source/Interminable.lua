@@ -141,15 +141,15 @@ Spawner.runEntity = function(entityTable)
 
     local nodes = {}
 
-    for _, room in next, workspace.CurrentRooms:GetChildren() do
-        local pathfindNodes = room:FindFirstChild("PathfindNodes")
+    for _, room in next, workspace.Rooms:GetChildren() do
+        local pathfindNodes = workspace.MonsterMove2Parts:IsA("Part")
         
         if pathfindNodes then
             pathfindNodes = pathfindNodes:GetChildren()
         else
             local fakeNode = Instance.new("Part")
             fakeNode.Name = "1"
-            fakeNode.CFrame = room:WaitForChild("RoomExit").CFrame - Vector3.new(0, room.RoomExit.Size.Y / 2, 0)
+            fakeNode.CFrame = room:WaitForChild("Door").CFrame - Vector3.new(0, room.Door.Size.Y / 2, 0)
 
             pathfindNodes = {fakeNode}
         end
@@ -259,15 +259,6 @@ Spawner.runEntity = function(entityTable)
                     task.spawn(function()
                         Char:SetAttribute("IsDead", true)
 
-                        -- Mute entity
-
-                        warn("mute entity")
-
-                        for _, v in next, entityModel:GetDescendants() do
-                            if v.ClassName == "Sound" and v.Playing then
-                                v:Stop()
-                            end
-                        end
 
                         -- Jumpscare
                         
@@ -287,21 +278,7 @@ Spawner.runEntity = function(entityTable)
                         
                         -- Unmute entity
 
-                        task.spawn(function()
-                            repeat task.wait() until Plr.PlayerGui.MainUI.DeathPanelDead.Visible
 
-                            warn("unmute entity:", entityModel)
-
-                            for _, v in next, entityModel:GetDescendants() do
-                                if v.ClassName == "Sound" then
-                                    local oldVolume = v.Volume
-                                
-                                    v.Volume = 0
-                                    v:Play()
-                                    TS:Create(v, TweenInfo.new(2), {Volume = oldVolume}):Play()
-                                end
-                            end
-                        end)
                     end)
                 end
             end
