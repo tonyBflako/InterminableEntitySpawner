@@ -145,7 +145,7 @@ Spawner.runEntity = function(entityTable)
         else
             local fakeNode = Instance.new("Part")
             fakeNode.Name = "1"
-            fakeNode.CFrame = room:WaitForChild("Door").CFrame - Vector3.new(0, room.Door.Size.Y / 2, 0)
+            fakeNode.CFrame = room:WaitForChild("Door").Door.CFrame - Vector3.new(0, room.Door.Door.Size.Y / 2, 0)
 
             pathfindNodes = {fakeNode}
         end
