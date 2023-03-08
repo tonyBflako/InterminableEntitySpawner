@@ -22,10 +22,7 @@ local SelfModules = {
     DefaultConfig = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors%20Entity%20Spawner/DefaultConfig.lua"))(),
     Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))(),
 }
-local ModuleScripts = {
-    ModuleEvents = require(ReSt.ClientModules.Module_Events),
-    MainGame = require(Plr.PlayerGui.MainUI.Initiator.Main_Game),
-}
+
 local EntityConnections = {}
 
 local Spawner = {}
@@ -188,11 +185,6 @@ Spawner.runEntity = function(entityTable)
         end
     end
 
-    -- Flickering
-
-    if entityTable.Config.FlickerLights[1] then
-        ModuleScripts.ModuleEvents.flicker(workspace.CurrentRooms[ReSt.GameData.LatestRoom.Value], entityTable.Config.FlickerLights[2])
-    end
 
     -- Movement
 
@@ -221,21 +213,6 @@ Spawner.runEntity = function(entityTable)
                 end
             end
 
-            -- Camera shaking
-            
-            local shakeConfig = entityTable.Config.CamShake
-            local shakeMag = (getPlayerRoot().Position - entityModel.PrimaryPart.Position).Magnitude
-
-            if shakeConfig[1] and shakeMag <= shakeConfig[3] then
-                local shakeRep = {}
-
-                for i, v in next, shakeConfig[2] do
-                    shakeRep[i] = v
-                end
-                shakeRep[1] = shakeConfig[2][1] / shakeConfig[3] * (shakeConfig[3] - shakeMag)
-
-                ModuleScripts.MainGame.camShaker.ShakeOnce(ModuleScripts.MainGame.camShaker, table.unpack(shakeRep))
-            end
 
             -- Player in sight
 
