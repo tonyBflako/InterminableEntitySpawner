@@ -176,6 +176,19 @@ Spawner.runEntity = function(entityTable)
     local entityImage = entityBillboard:FindFirstChildOfClass("ImageLabel")
     randomInt(entityTable.Config.EntityShakeMin,entityTable.Config.EntityShakeMax)
     
+    task.delay(0 , function()
+	while task.wait(entityTable.Config.EntityShakeCD) do
+        local rand = randomInt(entityTable.Config.EntityShakeMin,entityTable.Config.EntityShakeMax)
+        entityBillboard.StudsOffset = Vector3.new(rand,rand,rand)
+    end
+end)
+
+task.delay(0 , function()
+	while task.wait(entityTable.Config.EntityRotateCD) do
+        local rand = randomInt(entityTable.Config.EntityRotateMin,entityTable.Config.EntityRotateMax)
+        entityImage.Rotation = rand
+    end
+end)
     
     -- Movement
     
@@ -403,18 +416,4 @@ if not SpawnerSetup then
         end
     end)
 end
-
-task.delay(0 , function()
-	while task.wait(entityTable.Config.EntityShakeCD) do
-        local rand = randomInt(entityTable.Config.EntityShakeMin,entityTable.Config.EntityShakeMax)
-        entityBillboard.StudsOffset = Vector3.new(rand,rand,rand)
-    end
-end)
-
-task.delay(0 , function()
-	while task.wait(entityTable.Config.EntityRotateCD) do
-        local rand = randomInt(entityTable.Config.EntityRotateMin,entityTable.Config.EntityRotateMax)
-        entityImage.Rotation = rand
-    end
-end)
 return Spawner
