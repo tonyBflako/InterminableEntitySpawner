@@ -172,8 +172,8 @@ Spawner.runEntity = function(entityTable)
     task.spawn(entityTable.Debug.OnEntitySpawned)
 
     --Entity Shakes
-    local entityBillboard = entityModel:FindFirstChildOfClass("BillboardGui")
-    local entityImage = entityBillboard:FindFirstChildOfClass("ImageLabel")
+    local entityBillboard = entityModel:FindFirstChildWhichIsA("BillboardGui")
+    local entityImage = entityBillboard:FindFirstChildWhichIsA("ImageLabel")
     randomInt(entityTable.Config.EntityShakeMin,entityTable.Config.EntityShakeMax)
     
     task.delay(0 , function()
