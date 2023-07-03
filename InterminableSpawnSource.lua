@@ -5,7 +5,7 @@ local ReSt = game:GetService("ReplicatedStorage")
 local RS = game:GetService("RunService")
 local TS = game:GetService("TweenService")
 local CG = game:GetService("CoreGui")
-
+randomInt=function(...)return Random.new():NextNumber(...)end
 -- Variables
 
 local Plr = Players.LocalPlayer
@@ -92,7 +92,6 @@ Spawner.createEntity = function(config)
             config[i] = v
         end
     end
-
     config.Speed = StaticRushSpeed / 100 * config.Speed
 
     -- Model
@@ -172,8 +171,14 @@ Spawner.runEntity = function(entityTable)
     entityModel.Parent = game.Workspace.Entities
     task.spawn(entityTable.Debug.OnEntitySpawned)
 
+    --Entity Shakes
+    local entityBillboard = entityModel:FindFirstChildOfClass("BillboardGui")
+    local entityImage = entityBillboard:FindFirstChildOfClass("ImageLabel")
+    randomInt(entityTable.Config.EntityShakeMin,entityTable.Config.EntityShakeMax)
+    
+    
     -- Movement
-
+    
     task.wait(entityTable.Config.DelayTime)
 
     local enteredRooms = {}
@@ -212,7 +217,7 @@ Spawner.runEntity = function(entityTable)
                         
                         task.spawn(entityTable.Debug.OnDeath)
                         Hum.Health = 0
-                        ReSt.GameStats["Player_".. Plr.Name].Total.DeathCause.Value = entityModel.Name
+                        --ReSt.GameStats["Player_".. Plr.Name].Total.DeathCause.Value = entityModel.Name
                         
                         if #entityTable.Config.CustomDialog > 0 then
                             firesignal(ReSt.Bricks.DeathHint.OnClientEvent, entityTable.Config.CustomDialog)
@@ -399,4 +404,17 @@ if not SpawnerSetup then
     end)
 end
 
+task.delay(0 , function()
+	while task.wait(entityTable.Config.EntityShakeCD) do
+        local rand = randomInt(entityTable.Config.EntityShakeMin,entityTable.Config.EntityShakeMax)
+        entityBillboard.StudsOffset = Vector3.new(rand,rand,rand)
+    end
+end)
+
+task.delay(0 , function()
+	while task.wait(entityTable.Config.EntityRotateCD) do
+        local rand = randomInt(entityTable.Config.EntityRotateMin,entityTable.Config.EntityRotateMax)
+        entityImage.Rotation = rand
+    end
+end)
 return Spawner
