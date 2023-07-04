@@ -189,10 +189,6 @@ task.delay(0 , function()
         entityImage.Rotation = rand
     end
 end)
-
-
-    --Entity Image
-    entityImage.Image = "rbxassetid".. entityTable.Config.EntityImage
 	
     -- Movement
     
